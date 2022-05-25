@@ -14,6 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetCameraImage, selectCameraImage } from "./features/cameraSlice";
 import "./Preview.css";
+import { v4 as uuid } from "uuid";
+import { db, storage } from "./firebase";
+import { serverTimestamp } from "firebase/firestore";
 
 function Preview() {
   const cameraImage = useSelector(selectCameraImage);
@@ -31,6 +34,39 @@ function Preview() {
     dispatch(resetCameraImage());
   };
 
+  const sendPost = () => {
+    const id = uuid();
+    const uploadTask = storage
+      .ref(`posts/${id}`)
+      .putString(cameraImage, "data_url");
+
+    uploadTask.on(
+      "state_changed",
+      null,
+      (error) => {
+        // Error function
+        console.log(error);
+      },
+      () => {
+        // Complete function
+        storage
+          .ref("posts")
+          .child(id)
+          .getDownloadURL()
+          .then((url) => {
+            db.collection("posts").add({
+              imageUrl: url,
+              username: "BB",
+              read: false,
+              // profilePic,
+              timestamp: serverTimestamp(),
+            });
+            navigate('/chats')
+          });
+      }
+    );
+  };
+
   return (
     <div className="preview">
       <Close onClick={closePreview} className="preview__close" />
@@ -44,9 +80,9 @@ function Preview() {
         <Timer />
       </div>
       <img src={cameraImage} alt="" />
-      <div className="preview__footer">
+      <div onClick={sendPost} className="preview__footer">
         <h2>Send Now</h2>
-        <Send fontSize="small" className='preview__sendIcon' />
+        <Send fontSize="small" className="preview__sendIcon" />
       </div>
     </div>
   );
