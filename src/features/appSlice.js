@@ -3,18 +3,29 @@ import { createSlice } from "@reduxjs/toolkit";
 export const appSlice = createSlice({
   name: "app",
   initialState: {
-    value: 0,
+    user: null,
+    selectedImage: null,
   },
 
   reducers: {
-    enterRoom: (state, action) => {
-      state.value = action.payload.value;
+    login: (state, action) => {
+      state.user = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
+    },
+    selectImage: (state, action) => {
+      state.selectedImage = action.payload;
+    },
+    resetImage: (state) => {
+      state.selectedImage = null;
     },
   },
 });
 
-export const { enterRoom } = appSlice.actions;
+export const { login, logout, selectImage, resetImage } = appSlice.actions;
 
-export const selectRoomId = (state) => state.app.value;
+export const selectUser = (state) => state.app.user;
+export const selectSelectedImage = (state) => state.app.selectedImage;
 
 export default appSlice.reducer;
