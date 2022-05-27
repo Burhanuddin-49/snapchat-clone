@@ -36,14 +36,23 @@ function App() {
         {!user ? (
           <Login />
         ) : (
-          <div className="app__body">
-            <Routes>
-              <Route path="/chats/view" element={<ChatView />} />
-              <Route path="/chats" element={<Chats />} />
-              <Route path="/preview" element={<Preview />} />
-              <Route exact path="/" element={<WebcamCapture />} />
-            </Routes>
-          </div>
+          <>
+            <img
+              className="app__logo"
+              src="https://1000logos.net/wp-content/uploads/2017/08/Snapchat-logo-700x394.png"
+              alt=""
+            />
+            <div className="app__body">
+              <div className="app__bodyBackground">
+                <Routes>
+                  <Route path="/chats/view" element={<ChatView />} />
+                  <Route path="/chats" element={<Chats />} />
+                  <Route path="/preview" element={<Preview />} />
+                  <Route exact path="/" element={<WebcamCapture />} />
+                </Routes>
+              </div>
+            </div>
+          </>
         )}
       </Router>
     </div>

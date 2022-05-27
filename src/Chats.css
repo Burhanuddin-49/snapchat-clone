@@ -40,22 +40,44 @@ chats {
   opacity: 1;
 }
 
+.chats__searchIcon {
+  color: white;
+  opacity: 0.8;
+}
+
+.chats__camera {
+  color: white;
+  cursor: pointer;
+}
+
 .chats__posts {
-    box-shadow: 1px -7px 7px -6px rgba(0, 0, 0, 0.44);
-    height: 359px;
-    margin-top: -9px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background-color: white;
-    overflow: scroll;
+  box-shadow: 1px -7px 7px -6px rgba(0, 0, 0, 0.44);
+  height: 359px;
+  margin-top: -9px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: white;
+  overflow: scroll;
 }
 
 .chats__posts::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Hide scrollbar for IE, Edge ans firefox */
 .chats__posts {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+
+/* .chats__takePicIcon {
+  position: absolute;
+  background-color: white;
+  border-radius: 200px;
+  color: gray;
+  font-size: 40px !important;
+  cursor: pointer;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
