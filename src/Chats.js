@@ -1,12 +1,15 @@
-import { ChatBubble, Search } from "@mui/icons-material";
+import { ChatBubble, RadioButtonUnchecked, Search } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Chat from "./Chat";
 import "./Chats.css";
-import { db } from "./firebase";
+import { selectUser } from "./features/appSlice";
+import { auth, db } from "./firebase";
 
 function Chats() {
   const [posts, setPosts] = useState([]);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     db.collection("posts")
@@ -21,10 +24,18 @@ function Chats() {
       );
   }, []);
 
+  const takeSnap = () => {
+    
+  }
+
   return (
     <div className="chats">
       <div className="chats__header">
-        <Avatar className="chats__avatar" />
+        <Avatar
+          src={user.profilePic}
+          onClick={() => auth.signOut()}
+          className="chats__avatar"
+        />
         <div className="chats__search">
           <Search />
           <input placeholder="Friends" type="text" />
@@ -49,6 +60,11 @@ function Chats() {
           )
         )}
       </div>
+      <RadioButtonUnchecked
+        className="chats__takePicIcon"
+        onClick={takeSnap}
+        fontSize='large'
+      />
     </div>
   );
 }
